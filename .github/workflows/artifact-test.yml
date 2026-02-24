@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifact (Non-ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: artifact-日本語-123
+          name: Results-03_ユーザ管理DB
           path: source/test.txt
           if-no-files-found: error
 
