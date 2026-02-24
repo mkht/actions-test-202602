@@ -19,14 +19,14 @@ jobs:
       - name: Upload artifact (ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: R-01_ascii
+          name: Result-01_ascii
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: R-01_ascii
+          name: Result-01_ascii
           path: downloaded
 
       - name: Verify downloaded file matches
@@ -47,14 +47,14 @@ jobs:
       - name: Upload artifact (Non-ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: R-01_日本語
+          name: Result-01_日本語
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (Non-ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: R-01_日本語
+          name: Result-01_日本語
           path: downloaded
           merge-multiple: true
 
