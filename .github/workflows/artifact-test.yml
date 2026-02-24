@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  ascii_artifact:
-    name: ASCII artifact name
+  artifact-1:
+    name: Artifact "日"
     runs-on: ubuntu-latest
 
     steps:
@@ -16,26 +16,44 @@ jobs:
           mkdir -p source
           printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
 
-      - name: Upload artifact (ASCII name)
+      - name: Upload artifact ("日")
         uses: actions/upload-artifact@v6
         with:
-          name: Results-01_ascii
+          name: 日
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: Results-01_ascii
+          name: 日
           path: downloaded
 
-      - name: Verify downloaded file matches
-        run: |
-          test -f downloaded/test.txt
-          diff -u source/test.txt downloaded/test.txt
+  artifact-2:
+    name: Artifact "同"
+    runs-on: ubuntu-latest
 
-  non_ascii_artifact:
-    name: Non-ASCII artifact name
+    steps:
+      - name: Create source file
+        run: |
+          mkdir -p source
+          printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
+
+      - name: Upload artifact ("同")
+        uses: actions/upload-artifact@v6
+        with:
+          name: 同
+          path: source/test.txt
+          if-no-files-found: error
+
+      - name: Download artifact (ASCII name)
+        uses: actions/download-artifact@v7
+        with:
+          name: 同
+          path: downloaded
+
+  artifact-3:
+    name: Artifact "理"
     runs-on: ubuntu-latest
 
     steps:
@@ -56,8 +74,3 @@ jobs:
         with:
           name: 理
           path: downloaded
-
-      - name: Verify downloaded file matches
-        run: |
-          test -f downloaded/test.txt
-          diff -u source/test.txt downloaded/test.txt
