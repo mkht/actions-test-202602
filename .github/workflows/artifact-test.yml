@@ -6,9 +6,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  artifact-1:
-    name: Artifact "日"
+  artifact_matrix:
+    name: matrix (${{ matrix.char }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        char:
+          - "日"
+          - "理"
+          - "同"
+          - "管"
+          - "漢"
+          - "字"
+          - "語"
+          - "本"
+          - "学"
+          - "校"
+          - "電"
+          - "車"
+          - "水"
+          - "火"
+          - "木"
+          - "金"
+          - "土"
+          - "山"
+          - "川"
+          - "空"
 
     steps:
       - name: Create source file
@@ -16,61 +40,15 @@ jobs:
           mkdir -p source
           printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
 
-      - name: Upload artifact ("日")
-        uses: actions/upload-artifact@v6
+      - name: Upload artifact (Non-ASCII)
+        uses: actions/upload-artifact@v4
         with:
-          name: 日
+          name: probe-${{ matrix.char }}-x
           path: source/test.txt
           if-no-files-found: error
 
-      - name: Download artifact (ASCII name)
-        uses: actions/download-artifact@v7
+      - name: Download artifact (Non-ASCII)
+        uses: actions/download-artifact@v4
         with:
-          name: 日
-          path: downloaded
-
-  artifact-2:
-    name: Artifact "同"
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Create source file
-        run: |
-          mkdir -p source
-          printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
-
-      - name: Upload artifact ("同")
-        uses: actions/upload-artifact@v6
-        with:
-          name: 同
-          path: source/test.txt
-          if-no-files-found: error
-
-      - name: Download artifact (ASCII name)
-        uses: actions/download-artifact@v7
-        with:
-          name: 同
-          path: downloaded
-
-  artifact-3:
-    name: Artifact "理"
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Create source file
-        run: |
-          mkdir -p source
-          printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
-
-      - name: Upload artifact (Non-ASCII name)
-        uses: actions/upload-artifact@v6
-        with:
-          name: 理
-          path: source/test.txt
-          if-no-files-found: error
-
-      - name: Download artifact (Non-ASCII name)
-        uses: actions/download-artifact@v7
-        with:
-          name: 理
+          name: probe-${{ matrix.char }}-x
           path: downloaded
