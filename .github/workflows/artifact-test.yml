@@ -1,8 +1,6 @@
 name: Artifact-Test
 
 on:
-  schedule:
-    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,26 +11,30 @@ jobs:
       fail-fast: false
       matrix:
         char:
-          - "日"
-          - "理"
-          - "同"
-          - "管"
-          - "漢"
-          - "字"
-          - "語"
-          - "本"
-          - "学"
-          - "校"
-          - "電"
-          - "車"
-          - "水"
-          - "火"
-          - "木"
-          - "金"
-          - "土"
-          - "山"
-          - "川"
-          - "空"
+          # around 同 (U+540C)
+          - "\u5409"
+          - "\u540A"
+          - "\u540B"
+          - "\u540C"
+          - "\u540D"
+          - "\u540E"
+          - "\u540F"
+          # around 土 (U+571F)
+          - "\u571C"
+          - "\u571D"
+          - "\u571E"
+          - "\u571F"
+          - "\u5720"
+          - "\u5721"
+          - "\u5722"
+          # around 理 (U+7406)
+          - "\u7403"
+          - "\u7404"
+          - "\u7405"
+          - "\u7406"
+          - "\u7407"
+          - "\u7408"
+          - "\u7409"
 
     steps:
       - name: Create source file
@@ -40,14 +42,14 @@ jobs:
           mkdir -p source
           printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
 
-      - name: Upload artifact (Non-ASCII)
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: probe-${{ matrix.char }}-x
           path: source/test.txt
           if-no-files-found: error
 
-      - name: Download artifact (Non-ASCII)
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: probe-${{ matrix.char }}-x
