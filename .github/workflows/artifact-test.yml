@@ -47,14 +47,14 @@ jobs:
       - name: Upload artifact (Non-ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: 管理
+          name: 日本
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (Non-ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: 管理
+          name: 日本
           path: downloaded
 
       - name: Verify downloaded file matches
