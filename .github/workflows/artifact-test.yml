@@ -48,14 +48,14 @@ jobs:
       - name: Upload artifact (Non-ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: Result-01_日本語
+          name: Results-01_日本語
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (Non-ASCII name)
         uses: actions/download-artifact@v7
         with:
-          pattern: Result-*
+          pattern: Results-*
           path: downloaded
           merge-multiple: true
 
