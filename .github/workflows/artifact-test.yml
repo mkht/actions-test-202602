@@ -54,8 +54,9 @@ jobs:
       - name: Download artifact (Non-ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: artifact-日本語-123
+          pattern: Results-*
           path: downloaded
+          merge-multiple: true
 
       - name: Verify downloaded file matches
         run: |
