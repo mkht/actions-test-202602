@@ -19,16 +19,15 @@ jobs:
       - name: Upload artifact (ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: Result-01_ascii
+          name: Results-01_ascii
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (ASCII name)
         uses: actions/download-artifact@v7
         with:
-          pattern: Result-*
+          name: Results-01_ascii
           path: downloaded
-          merge-multiple: true
 
       - name: Verify downloaded file matches
         run: |
@@ -48,16 +47,15 @@ jobs:
       - name: Upload artifact (Non-ASCII name)
         uses: actions/upload-artifact@v6
         with:
-          name: Results-03_ユーザ管理DB
+          name: Results-01_ユーザ
           path: source/test.txt
           if-no-files-found: error
 
       - name: Download artifact (Non-ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: Results-03_ユーザ管理DB
+          name: Results-01_ユーザ
           path: downloaded
-          merge-multiple: true
 
       - name: Verify downloaded file matches
         run: |
