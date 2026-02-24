@@ -1,0 +1,63 @@
+name: Artifact-Test
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ascii_artifact:
+    name: ASCII artifact name
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create source file
+        run: |
+          mkdir -p source
+          printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
+
+      - name: Upload artifact (ASCII name)
+        uses: actions/upload-artifact@v6
+        with:
+          name: artifact-ascii-123
+          path: source/test.txt
+          if-no-files-found: error
+
+      - name: Download artifact (ASCII name)
+        uses: actions/download-artifact@v7
+        with:
+          name: artifact-ascii-123
+          path: downloaded
+
+      - name: Verify downloaded file matches
+        run: |
+          test -f downloaded/test.txt
+          diff -u source/test.txt downloaded/test.txt
+
+  non_ascii_artifact:
+    name: Non-ASCII artifact name
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create source file
+        run: |
+          mkdir -p source
+          printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
+
+      - name: Upload artifact (Non-ASCII name)
+        uses: actions/upload-artifact@v6
+        with:
+          name: artifact-日本語-123
+          path: source/test.txt
+          if-no-files-found: error
+
+      - name: Download artifact (Non-ASCII name)
+        uses: actions/download-artifact@v7
+        with:
+          name: artifact-日本語-123
+          path: downloaded
+
+      - name: Verify downloaded file matches
+        run: |
+          test -f downloaded/test.txt
+          diff -u source/test.txt downloaded/test.txt
