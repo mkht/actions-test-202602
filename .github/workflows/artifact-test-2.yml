@@ -1,0 +1,28 @@
+name: Artifact-Test-2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  non_ascii_artifact:
+    name: Non-ASCII artifact
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create test file
+        run: |
+          mkdir -p source
+          printf 'artifact-content-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" > source/test.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: 土 #U+571F
+          path: source/test.txt
+          if-no-files-found: error
+
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: 土 #U+571F
+          path: downloaded
