@@ -26,8 +26,9 @@ jobs:
       - name: Download artifact (ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: Result-01_ascii
+          pattern: Result-*
           path: downloaded
+          merge-multiple: true
 
       - name: Verify downloaded file matches
         run: |
@@ -54,7 +55,7 @@ jobs:
       - name: Download artifact (Non-ASCII name)
         uses: actions/download-artifact@v7
         with:
-          name: Result-01_日本語
+          pattern: Result-*
           path: downloaded
           merge-multiple: true
 
